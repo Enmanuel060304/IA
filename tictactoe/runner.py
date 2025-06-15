@@ -31,26 +31,29 @@ while True:
 
     # Let user choose a player.
     if user is None:
-
         # Draw title
-        title = largeFont.render("Play Tic-Tac-Toe", True, white)
-        titleRect = title.get_rect()
-        titleRect.center = ((width / 2), 50)
+        title = largeFont.render("Proyecto Final IA", True, white)
+        titleRect = title.get_rect(center=(width / 2, 80))
         screen.blit(title, titleRect)
 
-        # Draw buttons
-        playXButton = pygame.Rect((width / 8), (height / 2), width / 4, 50)
-        playX = mediumFont.render("Play as X", True, black)
-        playXRect = playX.get_rect()
-        playXRect.center = playXButton.center
-        pygame.draw.rect(screen, white, playXButton)
+        # Define button properties
+        button_width = 200
+        button_height = 60
+        spacing = 40
+        y_position = height / 2
+
+        # Jugar como X
+        playXButton = pygame.Rect((width / 2 - button_width - spacing / 2), y_position, button_width, button_height)
+        pygame.draw.rect(screen, white, playXButton, border_radius=12)
+        playX = mediumFont.render("Jugar como X", True, black)
+        playXRect = playX.get_rect(center=playXButton.center)
         screen.blit(playX, playXRect)
 
-        playOButton = pygame.Rect(5 * (width / 8), (height / 2), width / 4, 50)
-        playO = mediumFont.render("Play as O", True, black)
-        playORect = playO.get_rect()
-        playORect.center = playOButton.center
-        pygame.draw.rect(screen, white, playOButton)
+        # Jugar como O
+        playOButton = pygame.Rect((width / 2 + spacing / 2), y_position, button_width, button_height)
+        pygame.draw.rect(screen, white, playOButton, border_radius=12)
+        playO = mediumFont.render("Jugar como O", True, black)
+        playORect = playO.get_rect(center=playOButton.center)
         screen.blit(playO, playORect)
 
         # Check if button is clicked
@@ -63,6 +66,7 @@ while True:
             elif playOButton.collidepoint(mouse):
                 time.sleep(0.2)
                 user = ttt.O
+
 
     else:
 
@@ -96,13 +100,13 @@ while True:
         if game_over:
             winner = ttt.winner(board)
             if winner is None:
-                title = f"Game Over: Tie."
+                title = f"Juego terminado: Empate."
             else:
-                title = f"Game Over: {winner} wins."
+                title = f"Juego terminado: {winner} Gano."
         elif user == player:
-            title = f"Play as {user}"
+            title = f"Turno de {user}"
         else:
-            title = f"Computer thinking..."
+            title = f"Calculando..."
         title = largeFont.render(title, True, white)
         titleRect = title.get_rect()
         titleRect.center = ((width / 2), 30)
@@ -129,7 +133,7 @@ while True:
 
         if game_over:
             againButton = pygame.Rect(width / 3, height - 65, width / 3, 50)
-            again = mediumFont.render("Play Again", True, black)
+            again = mediumFont.render("Jugar de nuevo", True, black)
             againRect = again.get_rect()
             againRect.center = againButton.center
             pygame.draw.rect(screen, white, againButton)
